@@ -25,6 +25,11 @@ public class View {
             System.out.println("2. Update Spieler");
             System.out.println("3. Delete Spieler");
             System.out.println("4. Show All Spielers");
+            System.out.println("5. Add Vereine");
+            System.out.println("6. Update Vereine");
+            System.out.println("7. Delete Vereine");
+            System.out.println("8. Show All Vereine");
+            System.out.println("9. Add Spieler to Vereine");
             System.out.print("Choose an option: ");
 
             int choice = scanner.nextInt();
@@ -35,6 +40,11 @@ public class View {
                 case 2 -> updateSpieler();
                 case 3 -> deleteSpieler();
                 case 4 -> showAllSpielers();
+                case 5 -> addVereine();
+                case 6 -> updateVereine();
+                case 7 -> deleteVereine();
+                case 8 -> showAllVereine();
+                case 9 -> addSpielerToVereine();
 
                 default -> System.out.println("Invalid choice. Please try again.");
             }
@@ -93,6 +103,58 @@ public class View {
         }
 
         controller.getSpielers().forEach(System.out::println);
+    }
+
+    private void addVereine() {
+        System.out.println("Vereine ID: ");
+        int vereineID = scanner.nextInt();
+        scanner.nextLine();
+        System.out.print("Vereine Name: ");
+        String vereineName = scanner.nextLine();
+        System.out.print("Vereine Stadt: ");
+        String vereineStadt = scanner.nextLine();
+
+        controller.addVereine(new Vereine(vereineID, vereineName, vereineStadt));
+        System.out.println("Vereine added successfully!");
+    }
+
+    private void updateVereine() {
+        System.out.println("Vereine ID: ");
+        int vereineID = scanner.nextInt();
+        scanner.nextLine();
+        System.out.print("New Name: ");
+        String newName = scanner.nextLine();
+        System.out.print("New Stadt: ");
+        String newStadt = scanner.nextLine();
+        controller.updateVereine(vereineID, newName, newStadt);
+        System.out.println("Vereine updated successfully!");
+    }
+    private void deleteVereine() {
+        System.out.print("Enter the ID of the vereine to delete: ");
+        int vereineID = scanner.nextInt();
+        scanner.nextLine();
+        controller.deleteVereine(vereineID);
+        System.out.println("Vereine deleted successfully!");
+    }
+
+    private void showAllVereine() {
+        if (controller.getVereine().isEmpty()) {
+            System.out.println("No vereines found.");
+            return;
+        }
+        controller.getVereine().forEach(System.out::println);
+    }
+
+    private void addSpielerToVereine() {
+        controller.getSpielers().forEach(System.out::println);
+        System.out.println("Vereine ID: ");
+        int vereineID = scanner.nextInt();
+        scanner.nextLine();
+        System.out.print("Enter the id of the spieler to buy: ");
+        int spielerID = scanner.nextInt();
+        scanner.nextLine();
+        controller.addSpielertoVereine(vereineID, spielerID);
+
     }
 
 

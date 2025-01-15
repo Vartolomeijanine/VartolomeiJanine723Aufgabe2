@@ -40,5 +40,41 @@ public class Controller {
         return spielers;
     }
 
+    public void addVereine(Vereine vereine) {
+        this.vereine.add(vereine);
+    }
+
+    public List<Vereine> getVereine() {
+        return vereine;
+    }
+
+    public void updateVereine(int vereineID, String newName, String newStadt) {
+        for (Vereine vereine : vereine) {
+            if (vereine.getVereineID()==vereineID) {
+                vereine.setName(newName);
+                vereine.setStadt(newStadt);
+                System.out.println("Vereine updated: " + vereine);
+                return;
+            }
+        }
+        System.out.println("Vereine with ID " + vereineID + " not found.");
+    }
+
+    public void deleteVereine(int vereineID) {
+        vereine.removeIf(p -> p.getVereineID() == vereineID);
+    }
+
+    public void addSpielertoVereine(int spielerID, int vereineID) {
+        for (Vereine vereine : vereine) {
+            if (vereine.getVereineID()==vereineID) {
+                for (Spieler spieler : spielers) {
+                    if (spieler.getSpielerID()==spielerID) {
+                        vereine.getListSpieler().add(spieler);
+                    }
+                }
+            }
+        }
+    }
+
 
 }
