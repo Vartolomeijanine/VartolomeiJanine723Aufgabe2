@@ -4,6 +4,7 @@ import model.Spieler;
 import model.Vereine;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class Controller {
@@ -12,10 +13,6 @@ public class Controller {
 
     public void addSpieler(Spieler spieler) {
         spielers.add(spieler);
-    }
-
-    public List<Spieler> getProducts() {
-        return spielers;
     }
 
     public void updateSpieler(int spielerID, String newName, int newAge, String newPosition, int newMarkwert) {
@@ -74,7 +71,72 @@ public class Controller {
                 }
             }
         }
+        System.out.println("Spieler added to Vereine successfully!");
     }
 
+    /**
+     * Filters vereine by their stadt.
+     *
+     * @param stadt The stadt to filter by.
+     * @return List of customers from the specified place.
+     */
+
+    public List<Vereine> filterVereinebyStadt(String stadt) {
+        List<Vereine> filteredVereine = new ArrayList<>();
+        for (Vereine vereine : vereine) {
+            if (vereine.getStadt().equalsIgnoreCase(stadt)) {
+                filteredVereine.add(vereine);
+            }
+        }
+        return filteredVereine;
+    }
+
+
+    /**
+     * Filters spieler by vereine.
+     */
+    public List<Spieler> filterSpielerbyVereine(String vereine1) {
+        List<Spieler> filteredSpieler = new ArrayList<>();
+        for (Vereine vereine : vereine){
+            if (vereine.getName().equalsIgnoreCase(vereine1)) {
+                for (Spieler spieler : spielers) {
+                    filteredSpieler.add(spieler);
+                }
+                //getSpielers().forEach(p -> filteredSpieler.add(p));
+            }
+        }
+        return filteredSpieler;
+    }
+
+    /**
+     * Sorts spielers owned by a specific vereine.
+     *
+     * @param vereineName The name of the vereine.
+     * @param ascending  Whether to sort in ascending order.
+     * @return List of sorted products.
+     */
+
+    public List<Spieler> sortSpielersByMarkwert(String vereineName, boolean ascending) {
+        List<Spieler> filtered = new ArrayList<>();
+
+        for (Vereine vereine : vereine) {
+            if (vereine.getName().equalsIgnoreCase(vereineName)) {
+                filtered.addAll(vereine.getListSpieler());
+                break;
+            }
+        }
+
+        if (filtered.isEmpty()) {
+            System.out.println("Vereine with ID " + vereineName + " has no products.");
+            return filtered;
+        }
+
+        if (ascending) {
+            filtered.sort(Comparator.comparing(Spieler::getMarktwert));
+        } else {
+            filtered.sort(Comparator.comparing(Spieler::getMarktwert).reversed());
+        }
+        return filtered;
+    }
 
 }

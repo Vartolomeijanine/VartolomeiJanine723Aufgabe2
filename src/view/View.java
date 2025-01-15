@@ -30,6 +30,9 @@ public class View {
             System.out.println("7. Delete Vereine");
             System.out.println("8. Show All Vereine");
             System.out.println("9. Add Spieler to Vereine");
+            System.out.println("10. Filter Vereine By Stadt");
+            System.out.println("11. Filter Spieler by Vereine");
+            System.out.println("12. Filter Spieler from a Vereine by Markwert");
             System.out.print("Choose an option: ");
 
             int choice = scanner.nextInt();
@@ -45,6 +48,9 @@ public class View {
                 case 7 -> deleteVereine();
                 case 8 -> showAllVereine();
                 case 9 -> addSpielerToVereine();
+                case 10 -> filterVereinebyStadt();
+                case 11 -> filterSpielerbyVereine();
+                case 12 -> sortSpielersByMarkwert();
 
                 default -> System.out.println("Invalid choice. Please try again.");
             }
@@ -154,6 +160,33 @@ public class View {
         int spielerID = scanner.nextInt();
         scanner.nextLine();
         controller.addSpielertoVereine(vereineID, spielerID);
+    }
+
+    private void filterVereinebyStadt(){
+        System.out.println("Vereine Stadt: ");
+        String stadt = scanner.nextLine();
+        controller.filterVereinebyStadt(stadt);
+    }
+
+    private void filterSpielerbyVereine(){
+        System.out.println("Vereine Name: ");
+        String vereineName = scanner.nextLine();
+        controller.filterSpielerbyVereine(vereineName);
+    }
+
+    private void sortSpielersByMarkwert(){
+        controller.getSpielers().forEach(System.out::println);
+        System.out.println("Vereine Name: ");
+        String vereineName = scanner.nextLine();
+        System.out.print("Sort ascending? (true/false): ");
+        boolean ascending = scanner.nextBoolean();
+
+        List<Spieler> sortedSpielers = controller.sortSpielersByMarkwert(vereineName, ascending);
+        if (sortedSpielers.isEmpty()) {
+            System.out.println("No Spielers to display for this customer.");
+        } else {
+            sortedSpielers.forEach(System.out::println);
+        }
 
     }
 
