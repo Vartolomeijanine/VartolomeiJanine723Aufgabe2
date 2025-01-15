@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- * Console-based UI for managing the sports store.
+ * Console-based UI for managing spielers und vereine
  */
 public class View {
 
@@ -189,14 +189,6 @@ public class View {
         }
 
     }
-
-
-
-
-
-
-
-
 }
 
 

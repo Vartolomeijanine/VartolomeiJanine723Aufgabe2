@@ -102,7 +102,6 @@ public class Controller {
                 for (Spieler spieler : spielers) {
                     filteredSpieler.add(spieler);
                 }
-                //getSpielers().forEach(p -> filteredSpieler.add(p));
             }
         }
         return filteredSpieler;
